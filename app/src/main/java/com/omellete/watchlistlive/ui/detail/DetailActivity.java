@@ -12,7 +12,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
 import com.omellete.watchlistlive.R;
-import com.omellete.watchlistlive.data.entity.WatchlistEntity;
+import com.omellete.watchlistlive.data.WatchlistEntity;
 import com.omellete.watchlistlive.databinding.ActivityDetailBinding;
 import com.omellete.watchlistlive.viewmodel.ViewModelFactory;
 
@@ -36,7 +36,7 @@ public class DetailActivity extends AppCompatActivity {
         loading.setMessage("Wait for a moment");
         loading.show();
 
-        DetailItemViewModel viewModel = obtainViewModel(this);
+        DetailViewModel viewModel = obtainViewModel(this);
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -49,16 +49,15 @@ public class DetailActivity extends AppCompatActivity {
             }
         }
 
-        viewModel.getItem().observe(this, this::populateDetailItem);
-        loading.dismiss();
+        viewModel.getItem().observe(this, this::populateDetail);
     }
 
-    private DetailItemViewModel obtainViewModel(AppCompatActivity activity) {
+    private DetailViewModel obtainViewModel(AppCompatActivity activity) {
         ViewModelFactory factory = ViewModelFactory.getInstance();
-        return new ViewModelProvider(activity, factory).get(DetailItemViewModel.class);
+        return new ViewModelProvider(activity, factory).get(DetailViewModel.class);
     }
 
-    private void populateDetailItem(WatchlistEntity item) {
+    private void populateDetail(WatchlistEntity item) {
         Glide.with(getApplicationContext())
                 .load(item.getBackDropPath())
                 .into(binding.imgBackdrop);
@@ -72,7 +71,7 @@ public class DetailActivity extends AppCompatActivity {
         binding.tvDescription.setText(item.getDescription());
         binding.userVote.setText(item.getVote());
         itemName = item.getTitleOri();
-
+        loading.dismiss();
     }
 
     @Override

@@ -1,14 +1,15 @@
-package com.omellete.watchlistlive.utils;
+package com.omellete.watchlistlive.api;
 
-import static com.omellete.watchlistlive.data.entity.WatchlistEntity.TYPE_MOVIE;
-import static com.omellete.watchlistlive.data.entity.WatchlistEntity.TYPE_TV_SHOW;
+import static com.omellete.watchlistlive.data.WatchlistEntity.TYPE_MOVIE;
+import static com.omellete.watchlistlive.data.WatchlistEntity.TYPE_TV_SHOW;
 
 import android.util.Log;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.omellete.watchlistlive.data.source.remote.RemoteRepository;
-import com.omellete.watchlistlive.data.source.remote.response.WatchlistResponse;
+import com.omellete.watchlistlive.data.GenresId;
+import com.omellete.watchlistlive.repository.RemoteRepository;
+import com.omellete.watchlistlive.EspressoIdlingResource;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -75,12 +76,12 @@ public class JsonHelper {
                 String name = itemsType.equals(TYPE_MOVIE) ? response.getString("title") : response.getString("name");
                 String year = itemsType.equals(TYPE_MOVIE) ? response.getString("release_date") : response.getString("first_air_date");
                 year = year.length() > 4 ? year.substring(0, 4) : year;
+                year= year + " ";
                 String imgPosterPath = "https://image.tmdb.org/t/p/w342" + response.getString("poster_path");
                 String backDropPath = "https://image.tmdb.org/t/p/w342" + response.getString("backdrop_path");
                 JSONArray idGenres = response.getJSONArray("genre_ids");
-                HashMap<Integer, String> dataGenres = DataGenres.getGenres();
+                HashMap<Integer, String> dataGenres = GenresId.getGenres();
                 StringBuilder stringBuilder = new StringBuilder();
-
                 for (int j = 0; j < idGenres.length(); ++j) {
                     int idGenre = idGenres.getInt(j);
                     String valueGenre = dataGenres.get(idGenre);
@@ -91,10 +92,13 @@ public class JsonHelper {
                 String genres = stringBuilder.toString();
                 String description = response.getString("overview");
                 String titleOri = itemsType.equals(TYPE_MOVIE) ? response.getString("original_title") : response.getString("original_name");
-                String rating = response.getString("vote_average")+"%";
-                rating = rating.replace(".","");
+                String vote = response.getString("vote_average")+"%";
+                vote = vote.replace(".","");
+                if(vote.equals("00%")){
+                    vote = "0%";
+                }
 
-                WatchlistResponse watchlistResponse = new WatchlistResponse(id, imgPosterPath, backDropPath, titleOri, name, itemsType, genres, description, year, rating);
+                WatchlistResponse watchlistResponse = new WatchlistResponse(id, imgPosterPath, backDropPath, titleOri, name, itemsType, genres, description, year, vote);
                 watchlistRespons.add(watchlistResponse);
             }
         } catch (JSONException e) {

@@ -1,4 +1,4 @@
-package com.omellete.watchlistlive.ui.home;
+package com.omellete.watchlistlive;
 
 import androidx.appcompat.app.AppCompatActivity;
 

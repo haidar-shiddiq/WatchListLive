@@ -1,8 +1,8 @@
-package com.omellete.watchlistlive.data.source.remote;
+package com.omellete.watchlistlive.repository;
 
-import com.omellete.watchlistlive.data.source.remote.response.WatchlistResponse;
-import com.omellete.watchlistlive.utils.EspressoIdlingResource;
-import com.omellete.watchlistlive.utils.JsonHelper;
+import com.omellete.watchlistlive.api.WatchlistResponse;
+import com.omellete.watchlistlive.EspressoIdlingResource;
+import com.omellete.watchlistlive.api.JsonHelper;
 
 import java.util.ArrayList;
 

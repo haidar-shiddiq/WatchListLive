@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.omellete.watchlistlive.data.entity.WatchlistEntity;
+import com.omellete.watchlistlive.data.WatchlistEntity;
 import com.omellete.watchlistlive.databinding.ItemMovieShowBinding;
 import com.omellete.watchlistlive.ui.detail.DetailActivity;
 

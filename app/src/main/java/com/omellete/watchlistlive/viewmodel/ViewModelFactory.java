@@ -4,9 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.omellete.watchlistlive.data.source.MovieCatalogueRepository;
-import com.omellete.watchlistlive.di.Injection;
-import com.omellete.watchlistlive.ui.detail.DetailItemViewModel;
+import com.omellete.watchlistlive.repository.WatchlistRepository;
+import com.omellete.watchlistlive.data.Injection;
+import com.omellete.watchlistlive.ui.detail.DetailViewModel;
 import com.omellete.watchlistlive.ui.movies.MoviesViewModel;
 import com.omellete.watchlistlive.ui.tvshows.TvShowsViewModel;
 
@@ -14,10 +14,10 @@ public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory {
 
     private static volatile ViewModelFactory INSTANCE;
 
-    private final MovieCatalogueRepository movieCatalogueRepository;
+    private final WatchlistRepository watchlistRepository;
 
-    private ViewModelFactory(MovieCatalogueRepository movieCatalogueRepository) {
-        this.movieCatalogueRepository = movieCatalogueRepository;
+    private ViewModelFactory(WatchlistRepository watchlistRepository) {
+        this.watchlistRepository = watchlistRepository;
     }
 
     public static ViewModelFactory getInstance() {
@@ -33,15 +33,15 @@ public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory {
     @NonNull
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-        if (modelClass.isAssignableFrom(DetailItemViewModel.class)) {
+        if (modelClass.isAssignableFrom(DetailViewModel.class)) {
             //noinspection unchecked
-            return (T) new DetailItemViewModel(movieCatalogueRepository);
+            return (T) new DetailViewModel(watchlistRepository);
         } else if (modelClass.isAssignableFrom(MoviesViewModel.class)) {
             //noinspection unchecked
-            return (T) new MoviesViewModel(movieCatalogueRepository);
+            return (T) new MoviesViewModel(watchlistRepository);
         } else if (modelClass.isAssignableFrom(TvShowsViewModel.class)) {
             //noinspection unchecked
-            return (T) new TvShowsViewModel(movieCatalogueRepository);
+            return (T) new TvShowsViewModel(watchlistRepository);
         }
 
         throw new IllegalArgumentException("Unknown ViewModel class named " + modelClass.getName());

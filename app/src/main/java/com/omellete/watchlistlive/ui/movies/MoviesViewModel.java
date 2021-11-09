@@ -3,20 +3,20 @@ package com.omellete.watchlistlive.ui.movies;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.omellete.watchlistlive.data.entity.WatchlistEntity;
-import com.omellete.watchlistlive.data.source.MovieCatalogueRepository;
+import com.omellete.watchlistlive.data.WatchlistEntity;
+import com.omellete.watchlistlive.repository.WatchlistRepository;
 
 import java.util.ArrayList;
 
 public class MoviesViewModel extends ViewModel {
 
-    private final MovieCatalogueRepository movieCatalogueRepository;
+    private final WatchlistRepository watchlistRepository;
 
-    public MoviesViewModel(MovieCatalogueRepository movieCatalogueRepository) {
-        this.movieCatalogueRepository = movieCatalogueRepository;
+    public MoviesViewModel(WatchlistRepository watchlistRepository) {
+        this.watchlistRepository = watchlistRepository;
     }
 
     LiveData<ArrayList<WatchlistEntity>> getMovies() {
-        return movieCatalogueRepository.getMovies();
+        return watchlistRepository.getMovies();
     }
 }

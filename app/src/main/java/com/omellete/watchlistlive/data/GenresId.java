@@ -1,10 +1,10 @@
-package com.omellete.watchlistlive.utils;
+package com.omellete.watchlistlive.data;
 
 import android.annotation.SuppressLint;
 
 import java.util.HashMap;
 
-public class DataGenres {
+public class GenresId {
 
     public static HashMap<Integer, String> getGenres() {
         @SuppressLint("UseSparseArrays")

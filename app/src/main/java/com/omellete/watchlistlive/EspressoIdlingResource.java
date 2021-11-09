@@ -1,4 +1,4 @@
-package com.omellete.watchlistlive.utils;
+package com.omellete.watchlistlive;
 
 import androidx.test.espresso.IdlingResource;
 import androidx.test.espresso.idling.CountingIdlingResource;

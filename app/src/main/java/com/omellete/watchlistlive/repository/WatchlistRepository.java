@@ -1,7 +1,7 @@
-package com.omellete.watchlistlive.data.source;
+package com.omellete.watchlistlive.repository;
 
-import static com.omellete.watchlistlive.data.entity.WatchlistEntity.TYPE_MOVIE;
-import static com.omellete.watchlistlive.data.entity.WatchlistEntity.TYPE_TV_SHOW;
+import static com.omellete.watchlistlive.data.WatchlistEntity.TYPE_MOVIE;
+import static com.omellete.watchlistlive.data.WatchlistEntity.TYPE_TV_SHOW;
 
 import android.util.Log;
 
@@ -9,27 +9,27 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.omellete.watchlistlive.data.entity.WatchlistEntity;
-import com.omellete.watchlistlive.data.source.remote.RemoteRepository;
-import com.omellete.watchlistlive.data.source.remote.response.WatchlistResponse;
+import com.omellete.watchlistlive.data.WatchlistEntity;
+import com.omellete.watchlistlive.data.WatchlistData;
+import com.omellete.watchlistlive.api.WatchlistResponse;
 
 import java.util.ArrayList;
 
-public class MovieCatalogueRepository implements MovieCatalogueDataSource {
+public class WatchlistRepository implements WatchlistData {
 
-    private volatile static MovieCatalogueRepository INSTANCE = null;
+    private volatile static WatchlistRepository INSTANCE = null;
 
     private final RemoteRepository remoteRepository;
 
-    private MovieCatalogueRepository(@NonNull RemoteRepository remoteRepository) {
+    private WatchlistRepository(@NonNull RemoteRepository remoteRepository) {
         this.remoteRepository = remoteRepository;
     }
 
-    public static MovieCatalogueRepository getInstance(RemoteRepository remoteRepository) {
+    public static WatchlistRepository getInstance(RemoteRepository remoteRepository) {
         if (INSTANCE == null) {
-            synchronized (MovieCatalogueRepository.class) {
+            synchronized (WatchlistRepository.class) {
                 if (INSTANCE == null)
-                    INSTANCE = new MovieCatalogueRepository(remoteRepository);
+                    INSTANCE = new WatchlistRepository(remoteRepository);
             }
         }
         return INSTANCE;
