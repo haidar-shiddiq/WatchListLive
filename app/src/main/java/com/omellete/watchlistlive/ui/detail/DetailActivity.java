@@ -18,8 +18,8 @@ import com.omellete.watchlistlive.viewmodel.ViewModelFactory;
 
 public class DetailActivity extends AppCompatActivity {
 
-    public static final String EXTRA_ITEM_ID = "extra_item_id";
-    public static final String EXTRA_ITEM_TYPE = "extra_item_type";
+    public static final String EXTRA_ID = "extra_id";
+    public static final String EXTRA_TYPE = "extra_type";
 
     private ActivityDetailBinding binding;
     public String itemName;
@@ -40,8 +40,8 @@ public class DetailActivity extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            int itemId = extras.getInt(EXTRA_ITEM_ID, 0);
-            String itemType = extras.getString(EXTRA_ITEM_TYPE);
+            int itemId = extras.getInt(EXTRA_ID, 0);
+            String itemType = extras.getString(EXTRA_TYPE);
 
             if (itemId != 0 && itemType != null) {
                 viewModel.setItemId(itemId);

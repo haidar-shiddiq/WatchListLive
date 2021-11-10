@@ -16,7 +16,7 @@ public class TvShowsViewModel extends ViewModel {
         this.watchlistRepository = watchlistRepository;
     }
 
-    LiveData<ArrayList<WatchlistEntity>> getTvShows() {
+    public LiveData<ArrayList<WatchlistEntity>> getTvShows() {
         return watchlistRepository.getTvShows();
     }
 }

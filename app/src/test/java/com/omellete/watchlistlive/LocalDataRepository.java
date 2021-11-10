@@ -1,4 +1,4 @@
-package com.omellete.watchlistlive.repository;
+package com.omellete.watchlistlive;
 
 import static com.omellete.watchlistlive.data.WatchlistEntity.TYPE_MOVIE;
 import static com.omellete.watchlistlive.data.WatchlistEntity.TYPE_SHOW;
@@ -9,27 +9,28 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.omellete.watchlistlive.data.WatchlistEntity;
-import com.omellete.watchlistlive.data.WatchlistData;
 import com.omellete.watchlistlive.api.WatchlistResponse;
+import com.omellete.watchlistlive.data.WatchlistData;
+import com.omellete.watchlistlive.data.WatchlistEntity;
+import com.omellete.watchlistlive.repository.RemoteRepository;
 
 import java.util.ArrayList;
 
-public class WatchlistRepository implements WatchlistData {
+public class LocalDataRepository implements WatchlistData {
 
-    private volatile static WatchlistRepository INSTANCE = null;
+    private volatile static LocalDataRepository INSTANCE = null;
 
     private final RemoteRepository remoteRepository;
 
-    private WatchlistRepository(@NonNull RemoteRepository remoteRepository) {
+    LocalDataRepository(@NonNull RemoteRepository remoteRepository) {
         this.remoteRepository = remoteRepository;
     }
 
-    public static WatchlistRepository getInstance(RemoteRepository remoteRepository) {
+    public static LocalDataRepository getInstance(RemoteRepository remoteRepository) {
         if (INSTANCE == null) {
-            synchronized (WatchlistRepository.class) {
+            synchronized (LocalDataRepository.class) {
                 if (INSTANCE == null)
-                    INSTANCE = new WatchlistRepository(remoteRepository);
+                    INSTANCE = new LocalDataRepository(remoteRepository);
             }
         }
         return INSTANCE;
@@ -41,10 +42,10 @@ public class WatchlistRepository implements WatchlistData {
 
         remoteRepository.getMovies(new RemoteRepository.LoadItemsCallback() {
             @Override
-            public void onItemsReceived(ArrayList<WatchlistResponse> watchlistRespons) {
+            public void onItemsReceived(ArrayList<WatchlistResponse> itemResponses) {
                 ArrayList<WatchlistEntity> movies = new ArrayList<>();
 
-                for (WatchlistResponse watchlistResponse : watchlistRespons) {
+                for (WatchlistResponse watchlistResponse : itemResponses) {
                     WatchlistEntity movie = new WatchlistEntity(
                             watchlistResponse.getId(),
                             watchlistResponse.getImgPosterPath(),
@@ -65,7 +66,7 @@ public class WatchlistRepository implements WatchlistData {
 
             @Override
             public void onDataNotAvailable() {
-                Log.e(this.getClass().getSimpleName(), "onDataNotAvailable: getMovies: Request failed");
+                Log.e(this.getClass().getSimpleName(), "onDataNotAvailable: getDummyMovies: Request failed");
             }
         });
 
@@ -78,10 +79,10 @@ public class WatchlistRepository implements WatchlistData {
 
         remoteRepository.getTvShows(new RemoteRepository.LoadItemsCallback() {
             @Override
-            public void onItemsReceived(ArrayList<WatchlistResponse> watchlistRespons) {
+            public void onItemsReceived(ArrayList<WatchlistResponse> watchlistResponses) {
                 ArrayList<WatchlistEntity> tvShows = new ArrayList<>();
 
-                for (WatchlistResponse watchlistResponse : watchlistRespons) {
+                for (WatchlistResponse watchlistResponse : watchlistResponses) {
                     WatchlistEntity tvShow = new WatchlistEntity(
                             watchlistResponse.getId(),
                             watchlistResponse.getImgPosterPath(),
@@ -102,7 +103,7 @@ public class WatchlistRepository implements WatchlistData {
 
             @Override
             public void onDataNotAvailable() {
-                Log.e(this.getClass().getSimpleName(), "onDataNotAvailable: getTvShows: Request failed");
+                Log.e(this.getClass().getSimpleName(), "onDataNotAvailable: getDummyTvShows: Request failed");
             }
         });
 
@@ -116,8 +117,8 @@ public class WatchlistRepository implements WatchlistData {
         if (itemType.equals(TYPE_MOVIE)) {
             remoteRepository.getMovies(new RemoteRepository.LoadItemsCallback() {
                 @Override
-                public void onItemsReceived(ArrayList<WatchlistResponse> watchlistRespons) {
-                    for (WatchlistResponse watchlistResponse : watchlistRespons) {
+                public void onItemsReceived(ArrayList<WatchlistResponse> watchlistResponses) {
+                    for (WatchlistResponse watchlistResponse : watchlistResponses) {
                         if (watchlistResponse.getId() == id) {
                             WatchlistEntity movie = new WatchlistEntity(
                                     watchlistResponse.getId(),
@@ -139,14 +140,14 @@ public class WatchlistRepository implements WatchlistData {
 
                 @Override
                 public void onDataNotAvailable() {
-                    Log.e(this.getClass().getSimpleName(), "onDataNotAvailable: getItem: getMovies: Request failed");
+                    Log.e(this.getClass().getSimpleName(), "onDataNotAvailable: getItem: getDummyMovies: Request failed");
                 }
             });
         } else if (itemType.equals(TYPE_SHOW)) {
             remoteRepository.getTvShows(new RemoteRepository.LoadItemsCallback() {
                 @Override
-                public void onItemsReceived(ArrayList<WatchlistResponse> watchlistRespons) {
-                    for (WatchlistResponse watchlistResponse : watchlistRespons) {
+                public void onItemsReceived(ArrayList<WatchlistResponse> watchlistResponses) {
+                    for (WatchlistResponse watchlistResponse : watchlistResponses) {
                         if (watchlistResponse.getId() == id) {
                             WatchlistEntity tvShow = new WatchlistEntity(
                                     watchlistResponse.getId(),
@@ -168,7 +169,7 @@ public class WatchlistRepository implements WatchlistData {
 
                 @Override
                 public void onDataNotAvailable() {
-                    Log.e(this.getClass().getSimpleName(), "onDataNotAvailable: getItem: getTvShows: Request failed");
+                    Log.e(this.getClass().getSimpleName(), "onDataNotAvailable: getItem: getDummyTvShows: Request failed");
                 }
             });
         }

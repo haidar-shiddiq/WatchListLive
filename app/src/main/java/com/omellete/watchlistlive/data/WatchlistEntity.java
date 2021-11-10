@@ -7,7 +7,7 @@ public class WatchlistEntity {
     private final String imgPosterPath, backDropPath, titleOri, itemType, genres, description, year, vote;
 
     public static final String TYPE_MOVIE = "MOVIES";
-    public static final String TYPE_TV_SHOW = "SHOWS";
+    public static final String TYPE_SHOW = "SHOWS";
 
     public WatchlistEntity(int id, String imgPosterPath, String backDropPath, String titleOri, String name, String itemType, String genres, String description, String year, String vote) {
         this.id = id;

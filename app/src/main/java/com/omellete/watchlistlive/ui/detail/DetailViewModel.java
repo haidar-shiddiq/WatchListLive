@@ -16,15 +16,15 @@ public class DetailViewModel extends ViewModel {
         this.watchlistRepository = watchlistRepository;
     }
 
-    void setItemId(int itemId) {
+    public void setItemId(int itemId) {
         this.itemId = itemId;
     }
 
-    void setItemType(String itemType) {
+    public void setItemType(String itemType) {
         this.itemType = itemType;
     }
 
-    LiveData<WatchlistEntity> getItem() {
+    public LiveData<WatchlistEntity> getItem() {
         return watchlistRepository.getItem(itemType, itemId);
     }
 }

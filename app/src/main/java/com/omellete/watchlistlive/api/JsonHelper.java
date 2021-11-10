@@ -1,7 +1,7 @@
 package com.omellete.watchlistlive.api;
 
 import static com.omellete.watchlistlive.data.WatchlistEntity.TYPE_MOVIE;
-import static com.omellete.watchlistlive.data.WatchlistEntity.TYPE_TV_SHOW;
+import static com.omellete.watchlistlive.data.WatchlistEntity.TYPE_SHOW;
 
 import android.util.Log;
 
@@ -48,7 +48,7 @@ public class JsonHelper {
         new AsyncHttpClient().get(url, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                ArrayList<WatchlistResponse> watchlistRespons = parseJsonToArrayList(new String(responseBody), TYPE_TV_SHOW);
+                ArrayList<WatchlistResponse> watchlistRespons = parseJsonToArrayList(new String(responseBody), TYPE_SHOW);
                 callback.onItemsReceived(watchlistRespons);
                 EspressoIdlingResource.decrement();
             }

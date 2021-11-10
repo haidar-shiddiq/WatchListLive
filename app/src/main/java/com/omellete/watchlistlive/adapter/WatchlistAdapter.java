@@ -56,8 +56,8 @@ public class WatchlistAdapter extends RecyclerView.Adapter<WatchlistAdapter.Watc
         holder.binding.genre.setText(String.valueOf(getItems().get(position).getGenres()));
         holder.itemView.setOnClickListener(view -> {
             Intent moveToDetailItem = new Intent(activity, DetailActivity.class);
-            moveToDetailItem.putExtra(DetailActivity.EXTRA_ITEM_ID, getItems().get(position).getId());
-            moveToDetailItem.putExtra(DetailActivity.EXTRA_ITEM_TYPE, getItems().get(position).getItemType());
+            moveToDetailItem.putExtra(DetailActivity.EXTRA_ID, getItems().get(position).getId());
+            moveToDetailItem.putExtra(DetailActivity.EXTRA_TYPE, getItems().get(position).getItemType());
             activity.startActivity(moveToDetailItem);
         });
     }

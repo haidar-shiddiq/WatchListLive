@@ -8,7 +8,7 @@ import com.omellete.watchlistlive.R;
 import com.omellete.watchlistlive.adapter.SectionsPagerAdapter;
 import com.omellete.watchlistlive.databinding.ActivityMainBinding;
 
-public class HomeActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
