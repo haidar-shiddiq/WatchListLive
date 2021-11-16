@@ -25,43 +25,37 @@ public class WatchlistRepositoryTest {
     public InstantTaskExecutorRule instantTaskExecutorRule = new InstantTaskExecutorRule();
 
     private final RemoteRepository remote = mock(RemoteRepository.class);
-    private LocalDataRepository movieCatalogueRepository = new LocalDataRepository(remote);
+    private final LocalDataRepository localDataRepository = new LocalDataRepository(remote);
 
-    private ArrayList<WatchlistResponse> movieResponses = LocalData.getRemoteDummyMovies();
-    private ArrayList<WatchlistResponse> tvShowResponses = LocalData.getRemoteDummyTvShows();
-    private int movieId = movieResponses.get(0).getId();
-    private int tvShowId = tvShowResponses.get(0).getId();
+    private final ArrayList<WatchlistResponse> movieResponse = LocalData.getRemoteDummyMovies();
+    private final ArrayList<WatchlistResponse> showResponse = LocalData.getRemoteDummyTvShows();
+    private final int movieId = movieResponse.get(0).getId();
+    private final int showId = showResponse.get(0).getId();
 
     @Test
     public void getMovies() {
         doAnswer(invocation -> {
             ((RemoteRepository.LoadItemsCallback) invocation.getArguments()[0])
-                    .onItemsReceived(movieResponses);
+                    .onItemsReceived(movieResponse);
             return null;
         }).when(remote).getMovies(any(RemoteRepository.LoadItemsCallback.class));
-
-        ArrayList<WatchlistEntity> movieResult = movieCatalogueRepository.getMovies().getValue();
-
+        ArrayList<WatchlistEntity> movieResult = localDataRepository.getMovies().getValue();
         verify(remote, times(1)).getMovies(any(RemoteRepository.LoadItemsCallback.class));
-
         assertNotNull(movieResult);
-        assertEquals(movieResponses.size(), movieResult.size());
+        assertEquals(movieResponse.size(), movieResult.size());
     }
 
     @Test
     public void getTvShows() {
         doAnswer(invocation -> {
             ((RemoteRepository.LoadItemsCallback) invocation.getArguments()[0])
-                    .onItemsReceived(tvShowResponses);
+                    .onItemsReceived(showResponse);
             return null;
         }).when(remote).getTvShows(any(RemoteRepository.LoadItemsCallback.class));
-
-        ArrayList<WatchlistEntity> tvShowResult = movieCatalogueRepository.getTvShows().getValue();
-
+        ArrayList<WatchlistEntity> tvShowResult = localDataRepository.getTvShows().getValue();
         verify(remote, times(1)).getTvShows(any(RemoteRepository.LoadItemsCallback.class));
-
         assertNotNull(tvShowResult);
-        assertEquals(tvShowResponses.size(), tvShowResult.size());
+        assertEquals(showResponse.size(), tvShowResult.size());
     }
 
     @SuppressWarnings("ConstantConditions")
@@ -69,26 +63,24 @@ public class WatchlistRepositoryTest {
     public void getItem() {
         doAnswer(invocation -> {
             ((RemoteRepository.LoadItemsCallback) invocation.getArguments()[0])
-                    .onItemsReceived(movieResponses);
+                    .onItemsReceived(movieResponse);
             return null;
         }).when(remote).getMovies(any(RemoteRepository.LoadItemsCallback.class));
-
         doAnswer(invocation -> {
             ((RemoteRepository.LoadItemsCallback) invocation.getArguments()[0])
-                    .onItemsReceived(tvShowResponses);
+                    .onItemsReceived(showResponse);
             return null;
         }).when(remote).getTvShows(any(RemoteRepository.LoadItemsCallback.class));
 
-        WatchlistEntity movieResult = movieCatalogueRepository.getMovies().getValue().get(0);
-        WatchlistEntity tvShowResult = movieCatalogueRepository.getTvShows().getValue().get(0);
-
+        WatchlistEntity movieResult = localDataRepository.getMovies().getValue().get(0);
+        WatchlistEntity tvShowResult = localDataRepository.getTvShows().getValue().get(0);
         verify(remote, times(1)).getMovies(any(RemoteRepository.LoadItemsCallback.class));
         verify(remote, times(1)).getTvShows(any(RemoteRepository.LoadItemsCallback.class));
 
         assertNotNull(movieResult);
         assertNotNull(tvShowResult);
         assertEquals(movieId, movieResult.getId());
-        assertEquals(tvShowId, tvShowResult.getId());
+        assertEquals(showId, tvShowResult.getId());
     }
 
 }

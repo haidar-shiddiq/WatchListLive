@@ -4,17 +4,25 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/KULON/MBKM SIB DICODING/android project/WatchListLive/app/src/main/res/drawable-v24/circle.xml" value="0.2703125" />
+        <entry key="..\:/KULON/MBKM SIB DICODING/android project/WatchListLive/app/src/main/res/drawable-v24/share.xml" value="0.14270833333333333" />
         <entry key="..\:/KULON/MBKM SIB DICODING/android project/WatchListLive/app/src/main/res/drawable/label.xml" value="0.2703125" />
+        <entry key="..\:/KULON/MBKM SIB DICODING/android project/WatchListLive/app/src/main/res/drawable/share.xml" value="0.14635416666666667" />
         <entry key="..\:/KULON/MBKM SIB DICODING/android project/WatchListLive/app/src/main/res/drawable/square.xml" value="0.2703125" />
         <entry key="..\:/KULON/MBKM SIB DICODING/android project/WatchListLive/app/src/main/res/drawable/squaree.xml" value="0.2703125" />
-        <entry key="..\:/KULON/MBKM SIB DICODING/android project/WatchListLive/app/src/main/res/layout/activity_detail.xml" value="0.2" />
+        <entry key="..\:/KULON/MBKM SIB DICODING/android project/WatchListLive/app/src/main/res/layout/activity_detail.xml" value="0.536" />
         <entry key="..\:/KULON/MBKM SIB DICODING/android project/WatchListLive/app/src/main/res/layout/activity_detail_item.xml" value="0.14130434782608695" />
+        <entry key="..\:/KULON/MBKM SIB DICODING/android project/WatchListLive/app/src/main/res/layout/activity_favorite.xml" value="0.25416666666666665" />
         <entry key="..\:/KULON/MBKM SIB DICODING/android project/WatchListLive/app/src/main/res/layout/activity_main.xml" value="0.14130434782608695" />
+        <entry key="..\:/KULON/MBKM SIB DICODING/android project/WatchListLive/app/src/main/res/layout/activity_splash.xml" value="0.213768115942029" />
+        <entry key="..\:/KULON/MBKM SIB DICODING/android project/WatchListLive/app/src/main/res/layout/fragment_fav_movie.xml" value="0.25416666666666665" />
+        <entry key="..\:/KULON/MBKM SIB DICODING/android project/WatchListLive/app/src/main/res/layout/fragment_fav_tv_show.xml" value="0.13020833333333334" />
         <entry key="..\:/KULON/MBKM SIB DICODING/android project/WatchListLive/app/src/main/res/layout/fragment_movies.xml" value="0.14130434782608695" />
         <entry key="..\:/KULON/MBKM SIB DICODING/android project/WatchListLive/app/src/main/res/layout/fragment_tv_shows.xml" value="0.14764492753623187" />
         <entry key="..\:/KULON/MBKM SIB DICODING/android project/WatchListLive/app/src/main/res/layout/item.xml" value="0.14130434782608695" />
-        <entry key="..\:/KULON/MBKM SIB DICODING/android project/WatchListLive/app/src/main/res/layout/item_movie_show.xml" value="0.14130434782608695" />
+        <entry key="..\:/KULON/MBKM SIB DICODING/android project/WatchListLive/app/src/main/res/layout/item_fav.xml" value="0.5281045751633987" />
+        <entry key="..\:/KULON/MBKM SIB DICODING/android project/WatchListLive/app/src/main/res/layout/item_movie_show.xml" value="0.536" />
         <entry key="..\:/KULON/MBKM SIB DICODING/android project/WatchListLive/app/src/main/res/menu/detail_menu.xml" value="0.25416666666666665" />
+        <entry key="..\:/KULON/MBKM SIB DICODING/android project/WatchListLive/app/src/main/res/menu/main_menu.xml" value="0.25416666666666665" />
       </map>
     </option>
   </component>

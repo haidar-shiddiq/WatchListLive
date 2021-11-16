@@ -28,7 +28,7 @@
             tools:ignore="ContentDescription" />
 
         <TextView
-            android:id="@+id/tv_item_title"
+            android:id="@+id/tvItemTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -44,14 +44,14 @@
             tools:text="title" />
 
         <TextView
-            android:id="@+id/tv_item_date"
+            android:id="@+id/tvItemDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="monospace"
             android:gravity="start"
             android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="@+id/tv_item_title"
-            app:layout_constraintTop_toBottomOf="@+id/tv_item_title"
+            app:layout_constraintStart_toStartOf="@+id/tvItemTitle"
+            app:layout_constraintTop_toBottomOf="@+id/tvItemTitle"
             tools:text="year" />
 
         <TextView
@@ -59,7 +59,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:text="User Vote"
+            android:text="@string/user_vote"
             app:layout_constraintBottom_toBottomOf="@+id/img_poster"
             app:layout_constraintEnd_toEndOf="@+id/userScore"
             app:layout_constraintStart_toStartOf="@+id/userScore" />
@@ -71,22 +71,22 @@
             android:layout_marginEnd="20dp"
             android:background="@drawable/circle"
             android:gravity="center"
-            android:text="score"
+            android:text="@string/score"
             android:textAlignment="center"
             android:textColor="#FFFFFF"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/textView"
-            app:layout_constraintEnd_toEndOf="@+id/tv_item_title" />
+            app:layout_constraintEnd_toEndOf="@+id/tvItemTitle" />
 
         <TextView
             android:id="@+id/genre"
             android:layout_width="130dp"
             android:layout_height="wrap_content"
-            android:text="textview"
+            android:text="@string/textview"
             android:textSize="11sp"
             android:textStyle="italic"
-            app:layout_constraintStart_toStartOf="@+id/tv_item_date"
-            app:layout_constraintTop_toBottomOf="@+id/tv_item_date" />
+            app:layout_constraintStart_toStartOf="@+id/tvItemDate"
+            app:layout_constraintTop_toBottomOf="@+id/tvItemDate" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

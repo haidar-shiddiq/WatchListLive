@@ -9,7 +9,6 @@ public class GenresId {
     public static HashMap<Integer, String> getGenres() {
         @SuppressLint("UseSparseArrays")
         HashMap<Integer, String> genres = new HashMap<>();
-
         genres.put(28, "Action");
         genres.put(12, "Adventure");
         genres.put(16, "Animation");

@@ -2,7 +2,6 @@ package com.omellete.watchlistlive;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
-import static androidx.test.espresso.action.ViewActions.scrollTo;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
@@ -63,7 +62,6 @@ public class ShowDetailActivityTest {
         onView(withId(R.id.tvName)).check(matches(withText(localShows.getName())));
         onView(withId(R.id.tvGenres)).check(matches(isDisplayed()));
         onView(withId(R.id.tvGenres)).check(matches(withText(localShows.getGenres())));
-        onView(withId(R.id.tvDescription)).perform(scrollTo());
         onView(withId(R.id.tvDescription)).check(matches(isDisplayed()));
         onView(withId(R.id.tvDescription)).check(matches(withText(localShows.getDescription())));
         onView(withId(R.id.tvYear)).check(matches(isDisplayed()));

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class RemoteRepository {
 
     private static RemoteRepository INSTANCE;
-    private JsonHelper jsonHelper;
+    private final JsonHelper jsonHelper;
 
     private RemoteRepository(JsonHelper jsonHelper) {
         this.jsonHelper = jsonHelper;

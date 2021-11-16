@@ -17,15 +17,18 @@ import com.omellete.watchlistlive.ui.tvshows.TvShowsViewModel;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
+import org.mockito.Mock;
 
 import java.util.ArrayList;
 
 public class TvShowsViewModelTest {
     @Rule
     public InstantTaskExecutorRule instantTaskExecutorRule = new InstantTaskExecutorRule();
-
     private TvShowsViewModel viewModel;
     private final WatchlistRepository watchlistRepository = mock(WatchlistRepository.class);
+
+    @Mock
+    private final Observer<ArrayList<WatchlistEntity>> observer = mock(Observer.class);
 
     @Before
     public void setUp() {
@@ -39,12 +42,11 @@ public class TvShowsViewModelTest {
         shows.setValue(dummyShows);
         when(watchlistRepository.getTvShows()).thenReturn(shows);
 
-        Observer<ArrayList<WatchlistEntity>> observer = mock(Observer.class);
-        viewModel.getTvShows().observeForever(observer);
-        verify(observer).onChanged(dummyShows);
-
         ArrayList<WatchlistEntity> showResults = viewModel.getTvShows().getValue();
         assertNotNull(showResults);
         assertEquals(3, showResults.size());
+
+        viewModel.getTvShows().observeForever(observer);
+        verify(observer).onChanged(dummyShows);
     }
 }

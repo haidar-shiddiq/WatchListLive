@@ -19,16 +19,19 @@ import com.omellete.watchlistlive.ui.detail.DetailViewModel;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
+import org.mockito.Mock;
 
 public class DetailViewModelTest {
 
     @Rule
     public InstantTaskExecutorRule instantTaskExecutorRule = new InstantTaskExecutorRule();
-
     private DetailViewModel viewModel;
-    private final WatchlistEntity dummyMovie = LocalData.getDummyMovies().get(0);
-    private final WatchlistEntity dummyTvShow = LocalData.getDummyTvShows().get(0);
+    private final WatchlistEntity localMovie = LocalData.getDummyMovies().get(0);
+    private final WatchlistEntity localTvShow = LocalData.getDummyTvShows().get(0);
     private final WatchlistRepository watchlistRepository = mock(WatchlistRepository.class);
+
+    @Mock
+    private Observer<WatchlistEntity> observer = mock(Observer.class);
 
     @Before
     public void setUp() {
@@ -38,57 +41,53 @@ public class DetailViewModelTest {
     @Test
     public void getMovie() {
         MutableLiveData<WatchlistEntity> movie = new MutableLiveData<>();
-        movie.setValue(dummyMovie);
-        int movieId = dummyMovie.getId();
+        movie.setValue(localMovie);
+        int movieId = localMovie.getId();
         when(watchlistRepository.getItem(TYPE_MOVIE, movieId)).thenReturn(movie);
-
         viewModel.setItemType(TYPE_MOVIE);
         viewModel.setItemId(movieId);
 
-        Observer<WatchlistEntity> observer = mock(Observer.class);
-        viewModel.getItem().observeForever(observer);
-        verify(observer).onChanged(dummyMovie);
-
         WatchlistEntity movieResult = viewModel.getItem().getValue();
         assertNotNull(movieResult);
-        assertEquals(dummyMovie.getId(), movieResult.getId());
-        assertEquals(dummyMovie.getImgPosterPath(), movieResult.getImgPosterPath());
-        assertEquals(dummyMovie.getBackDropPath(), movieResult.getBackDropPath());
-        assertEquals(dummyMovie.getTitleOri(), movieResult.getTitleOri());
-        assertEquals(dummyMovie.getName(), movieResult.getName());
-        assertEquals(dummyMovie.getItemType(), movieResult.getItemType());
-        assertEquals(dummyMovie.getGenres(), movieResult.getGenres());
-        assertEquals(dummyMovie.getDescription(), movieResult.getDescription());
-        assertEquals(dummyMovie.getYear(), movieResult.getYear());
-        assertEquals(dummyMovie.getVote(), movieResult.getVote());
+        assertEquals(localMovie.getId(), movieResult.getId());
+        assertEquals(localMovie.getImgPosterPath(), movieResult.getImgPosterPath());
+        assertEquals(localMovie.getBackDropPath(), movieResult.getBackDropPath());
+        assertEquals(localMovie.getTitleOri(), movieResult.getTitleOri());
+        assertEquals(localMovie.getName(), movieResult.getName());
+        assertEquals(localMovie.getItemType(), movieResult.getItemType());
+        assertEquals(localMovie.getGenres(), movieResult.getGenres());
+        assertEquals(localMovie.getDescription(), movieResult.getDescription());
+        assertEquals(localMovie.getYear(), movieResult.getYear());
+        assertEquals(localMovie.getVote(), movieResult.getVote());
+
+        viewModel.getItem().observeForever(observer);
+        verify(observer).onChanged(localMovie);
     }
 
     @Test
     public void getTvShow() {
         MutableLiveData<WatchlistEntity> tvShow = new MutableLiveData<>();
-        tvShow.setValue(dummyTvShow);
-        int tvShowId = dummyTvShow.getId();
+        tvShow.setValue(localTvShow);
+        int tvShowId = localTvShow.getId();
         when(watchlistRepository.getItem(TYPE_SHOW, tvShowId)).thenReturn(tvShow);
-
         viewModel.setItemType(TYPE_SHOW);
         viewModel.setItemId(tvShowId);
-
-        Observer<WatchlistEntity> observer = mock(Observer.class);
-        viewModel.getItem().observeForever(observer);
-        verify(observer).onChanged(dummyTvShow);
+        observer = mock(Observer.class);
 
         WatchlistEntity tvShowResult = viewModel.getItem().getValue();
         assertNotNull(tvShowResult);
-        assertEquals(dummyTvShow.getId(), tvShowResult.getId());
-        assertEquals(dummyTvShow.getImgPosterPath(), tvShowResult.getImgPosterPath());
-        assertEquals(dummyTvShow.getBackDropPath(), tvShowResult.getBackDropPath());
-        assertEquals(dummyTvShow.getTitleOri(), tvShowResult.getTitleOri());
-        assertEquals(dummyTvShow.getName(), tvShowResult.getName());
-        assertEquals(dummyTvShow.getItemType(), tvShowResult.getItemType());
-        assertEquals(dummyTvShow.getGenres(), tvShowResult.getGenres());
-        assertEquals(dummyTvShow.getDescription(), tvShowResult.getDescription());
-        assertEquals(dummyTvShow.getYear(), tvShowResult.getYear());
-        assertEquals(dummyTvShow.getVote(), tvShowResult.getVote());
+        assertEquals(localTvShow.getId(), tvShowResult.getId());
+        assertEquals(localTvShow.getImgPosterPath(), tvShowResult.getImgPosterPath());
+        assertEquals(localTvShow.getBackDropPath(), tvShowResult.getBackDropPath());
+        assertEquals(localTvShow.getTitleOri(), tvShowResult.getTitleOri());
+        assertEquals(localTvShow.getName(), tvShowResult.getName());
+        assertEquals(localTvShow.getItemType(), tvShowResult.getItemType());
+        assertEquals(localTvShow.getGenres(), tvShowResult.getGenres());
+        assertEquals(localTvShow.getDescription(), tvShowResult.getDescription());
+        assertEquals(localTvShow.getYear(), tvShowResult.getYear());
+        assertEquals(localTvShow.getVote(), tvShowResult.getVote());
 
+        viewModel.getItem().observeForever(observer);
+        verify(observer).onChanged(localTvShow);
     }
 }

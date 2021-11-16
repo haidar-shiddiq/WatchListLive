@@ -19,15 +19,18 @@ import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
+import org.mockito.Mock;
 
 import java.util.ArrayList;
 
 public class MoviesViewModelTest {
     @Rule
     public InstantTaskExecutorRule instantTaskExecutorRule = new InstantTaskExecutorRule();
-
     private MoviesViewModel viewModel;
     private final WatchlistRepository watchlistRepository = mock(WatchlistRepository.class);
+
+    @Mock
+    private final Observer<ArrayList<WatchlistEntity>> observer = mock(Observer.class);
 
     @Before
     public void setUp() {
@@ -41,12 +44,11 @@ public class MoviesViewModelTest {
         movies.setValue(dummyMovies);
         when(watchlistRepository.getMovies()).thenReturn(movies);
 
-        Observer<ArrayList<WatchlistEntity>> observer = mock(Observer.class);
-        viewModel.getMovies().observeForever(observer);
-        verify(observer).onChanged(dummyMovies);
-
         ArrayList<WatchlistEntity> movieResults = viewModel.getMovies().getValue();
         assertNotNull(movieResults);
         assertEquals(3, movieResults.size());
+
+        viewModel.getMovies().observeForever(observer);
+        verify(observer).onChanged(dummyMovies);
     }
 }

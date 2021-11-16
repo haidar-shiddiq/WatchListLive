@@ -16,4 +16,7 @@
     <style name="roundedsquare">
         <item name="cornerSize">5%</item>
     </style>
+    <style name="splashBg">
+        <item name="android:background">#123D5F</item>
+    </style>
 </resources>

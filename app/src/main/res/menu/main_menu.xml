@@ -2,9 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/share"
-        android:icon="@drawable/share"
-        android:title="@string/sharebtn"
+        android:id="@+id/fav"
+        android:icon="@drawable/favorite"
+        android:title="@string/favbtn"
         app:showAsAction="ifRoom" />
 
 </menu>

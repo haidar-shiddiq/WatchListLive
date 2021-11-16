@@ -1,6 +1,5 @@
 <resources>
-    <string name="app_name">WatchList Live</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="app_name">Watchlist Live</string>
     <string name="movies">Movies</string>
     <string name="tv_show">TV Shows</string>
     <string name="tv_shows">TV Shows</string>
@@ -8,7 +7,16 @@
     <string name="genres_label">Genres</string>
     <string name="genres">Genre 1, Genre 2, Genre 3, …</string>
     <string name="year">Year</string>
-    <string name="lorem">Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora nobis reprehenderit, voluptate sint sit itaque repudiandae eligendi debitis beatae, laudantium eaque numquam officia. Laborum earum nisi quae nihil odio minima?Laudantium eveniet ipsum provident veniam labore, rerum tempora dolorum, vero hic mollitia necessitatibus nesciunt nam esse perspiciatis facere iste debitis suscipit? Assumenda vero asperiores officia a nostrum deleniti ipsum laborum.</string>
-    <string name="title_activity_detail_item">Detail Item Activity</string>
-    <string name="language">Language</string>
+    <string name="backdrop">backdrop</string>
+    <string name="textview">textview</string>
+    <string name="overview">Overview</string>
+    <string name="split">|</string>
+    <string name="user_vote">User Vote</string>
+    <string name="years">XXXX </string>
+    <string name="score">score</string>
+    <string name="sharebtn">sharebtn</string>
+    <string name="favbtn">favbtn</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="add_to_favorite">Add to Favorite</string>
 </resources>

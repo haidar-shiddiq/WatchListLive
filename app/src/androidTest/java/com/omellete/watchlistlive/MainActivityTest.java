@@ -4,13 +4,12 @@ import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.scrollTo;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
-import static androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition;
 
 import androidx.test.espresso.IdlingRegistry;
-import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.rule.ActivityTestRule;
 
 import org.junit.After;
@@ -19,8 +18,6 @@ import org.junit.FixMethodOrder;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
-
-import java.util.ArrayList;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class MainActivityTest {
@@ -39,26 +36,32 @@ public class MainActivityTest {
     }
 
     @Test
-    public void A_loadMovies() {
+    public void A_checkTabs() {
+        onView(withId(R.id.viewPager)).check(matches(isDisplayed()));
+        onView(withId(R.id.tabs)).check(matches(isDisplayed()));
+    }
+
+    @Test
+    public void B_loadMovies() {
         onView(withId(R.id.rvMovies)).check(matches(isDisplayed()));
         onView(withId(R.id.rvMovies)).perform(actionOnItemAtPosition(19, scrollTo()));
     }
 
     @Test
-    public void B_loadShows() {
+    public void C_loadShows() {
         onView(withText("TV SHOWS")).perform(click());
         onView(withId(R.id.rvTvShows)).check(matches(isDisplayed()));
         onView(withId(R.id.rvTvShows)).perform(actionOnItemAtPosition(19, scrollTo()));
     }
 
     @Test
-    public void C_loadDetailMovies() {
+    public void D_loadDetailMovies() {
         onView(withId(R.id.rvMovies)).check(matches(isDisplayed()));
         onView(withId(R.id.rvMovies)).perform(actionOnItemAtPosition(0, click()));
     }
 
     @Test
-    public void D_loadDetailShows() {
+    public void E_loadDetailShows() {
         onView(withText("TV SHOWS")).perform(click());
         onView(withId(R.id.rvTvShows)).check(matches(isDisplayed()));
         onView(withId(R.id.rvTvShows)).perform(actionOnItemAtPosition(0, click()));

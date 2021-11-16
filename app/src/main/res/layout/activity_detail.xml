@@ -14,12 +14,14 @@
                 android:id="@+id/imgBackdrop"
                 android:layout_width="680dp"
                 android:layout_height="340dp"
+                android:layout_marginTop="4dp"
                 android:alpha="0.3"
+                android:contentDescription="@string/backdrop"
                 app:layout_constraintEnd_toEndOf="@+id/tvDescription"
+                app:layout_constraintHorizontal_bias="0.457"
                 app:layout_constraintStart_toStartOf="@+id/tvDescription"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:srcCompat="@tools:sample/backgrounds/scenic"
-                android:contentDescription="backdrop" />
+                tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/imgPhoto"
@@ -39,7 +41,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="5dp"
-                android:text="textview"
+                android:text="@string/textview"
                 android:textAlignment="center"
                 android:textSize="23sp"
                 android:textStyle="bold"
@@ -54,18 +56,18 @@
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="5dp"
-                android:text="textview"
+                android:text="@string/textview"
                 android:textAlignment="center"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView2" />
+                app:layout_constraintTop_toBottomOf="@+id/fabFavorite" />
 
             <TextView
                 android:id="@+id/nameOri"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:text="textview"
+                android:text="@string/textview"
                 android:textAlignment="center"
                 android:textStyle="italic"
                 app:layout_constraintBottom_toBottomOf="@+id/imgPhoto"
@@ -78,7 +80,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="textview"
+                android:text="@string/textview"
                 android:textSize="14sp"
                 android:textStyle="italic"
                 app:layout_constraintEnd_toEndOf="@+id/tvName"
@@ -91,7 +93,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="5dp"
-                android:text="Overview"
+                android:text="@string/overview"
                 android:textSize="17sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
@@ -103,7 +105,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:alpha="0.3"
-                android:text="|"
+                android:text="@string/split"
                 android:textSize="25sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -114,7 +116,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="17dp"
-                android:text="User Vote"
+                android:text="@string/user_vote"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/textView3"
@@ -126,7 +128,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="17dp"
-                android:text="Year"
+                android:text="@string/year"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/textView3"
@@ -142,7 +144,7 @@
                 android:layout_marginStart="5dp"
                 android:background="@drawable/label"
                 android:textStyle="bold"
-                android:text="1999 "
+                android:text="@string/years"
                 android:textColor="@color/white"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="@+id/textView3"
@@ -157,13 +159,24 @@
                 android:background="@drawable/circle"
                 android:fontFamily="monospace"
                 android:gravity="center"
-                android:text="score"
+                android:text="@string/score"
                 android:textColor="#FFFFFF"
                 android:textSize="11sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/textView4"
                 app:layout_constraintEnd_toStartOf="@+id/textView4"
                 app:layout_constraintTop_toTopOf="@+id/textView4" />
+
+            <Button
+                android:id="@+id/fabFavorite"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginEnd="5dp"
+                android:textSize="11sp"
+                android:text="@string/add_to_favorite"
+                app:layout_constraintBottom_toBottomOf="@+id/textView2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textView2" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
