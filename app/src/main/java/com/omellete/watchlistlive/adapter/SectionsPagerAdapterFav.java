@@ -9,11 +9,10 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
+import com.omellete.watchlistlive.FavoriteActivity;
 import com.omellete.watchlistlive.R;
 import com.omellete.watchlistlive.ui.favorite.FavMovieFragment;
 import com.omellete.watchlistlive.ui.favorite.FavTvShowFragment;
-import com.omellete.watchlistlive.ui.movies.MoviesFragment;
-import com.omellete.watchlistlive.ui.tvshows.TvShowsFragment;
 
 public class SectionsPagerAdapterFav extends FragmentPagerAdapter {
 

@@ -9,6 +9,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.paging.PagedList;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,6 +23,7 @@ import com.omellete.watchlistlive.R;
 import com.omellete.watchlistlive.adapter.FavoriteAdapter;
 import com.omellete.watchlistlive.databinding.FragmentFavMovieBinding;
 import com.omellete.watchlistlive.databinding.FragmentFavTvShowBinding;
+import com.omellete.watchlistlive.db.FavoritePagedListAdapter;
 import com.omellete.watchlistlive.db.MovieFavoriteModel;
 import com.omellete.watchlistlive.db.RoomViewModel;
 import com.omellete.watchlistlive.ui.detail.DetailActivity;
@@ -34,6 +36,7 @@ public class FavTvShowFragment extends Fragment {
     ProgressDialog loading;
     private RoomViewModel roomViewModel;
     FavoriteAdapter favoriteAdapter;
+    FavoritePagedListAdapter adapter;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentFavTvShowBinding.inflate(inflater, container, false);
@@ -48,20 +51,21 @@ public class FavTvShowFragment extends Fragment {
         loading.setMessage("Wait for a moment");
 
         favoriteAdapter = new FavoriteAdapter();
+        adapter = new FavoritePagedListAdapter();
         binding.rvFavoriteShow.setLayoutManager(new LinearLayoutManager(getContext()));
-        binding.rvFavoriteShow.setAdapter(favoriteAdapter);
+        binding.rvFavoriteShow.setAdapter(adapter);
         binding.rvFavoriteShow.setHasFixedSize(true);
 
         roomViewModel = new ViewModelProvider(this).get(RoomViewModel.class);
 
-        roomViewModel.getAllFavShow().observe(getViewLifecycleOwner(), new Observer<List<MovieFavoriteModel>>() {
+        roomViewModel.getAllFavShow().observe(getViewLifecycleOwner(), new Observer<PagedList<MovieFavoriteModel>>() {
             @Override
-            public void onChanged(List<MovieFavoriteModel> models) {
-                favoriteAdapter.submitList(models);
+            public void onChanged(PagedList<MovieFavoriteModel> models) {
+                adapter.submitList(models);
             }
         });
 
-        favoriteAdapter.setOnItemClickListener(new FavoriteAdapter.OnItemClickListener() {
+        adapter.setOnItemClickListener(new FavoriteAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(MovieFavoriteModel model) {
                 Intent intent = new Intent(getContext(), DetailActivity.class);
@@ -79,8 +83,8 @@ public class FavTvShowFragment extends Fragment {
 
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                roomViewModel.delete(favoriteAdapter.getFavAt(viewHolder.getAdapterPosition()));
-                Toast.makeText(getContext(), "User removed from Favorite", Toast.LENGTH_SHORT).show();
+                roomViewModel.delete(adapter.getFavAt(viewHolder.getAdapterPosition()));
+                Toast.makeText(getContext(), "Tv Show removed from Favorite", Toast.LENGTH_SHORT).show();
             }
         }).attachToRecyclerView(binding.rvFavoriteShow);
 

@@ -5,6 +5,9 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.paging.DataSource;
+import androidx.paging.LivePagedListBuilder;
+import androidx.paging.PagedList;
 
 import java.util.List;
 
@@ -12,9 +15,9 @@ public class RoomViewModel extends AndroidViewModel {
 
     private FavoriteRepository repository;
 
-    private LiveData<List<MovieFavoriteModel>> allFav;
-    private LiveData<List<MovieFavoriteModel>> allFavMovie;
-    private LiveData<List<MovieFavoriteModel>> allFavShow;
+    private DataSource.Factory<Integer, MovieFavoriteModel> allFav;
+    private DataSource.Factory<Integer, MovieFavoriteModel> allFavMovie;
+    private DataSource.Factory<Integer, MovieFavoriteModel> allFavShow;
 
     public RoomViewModel(@NonNull Application application) {
         super(application);
@@ -40,13 +43,24 @@ public class RoomViewModel extends AndroidViewModel {
         repository.deleteAllFav();
     }
 
-    public LiveData<List<MovieFavoriteModel>> getAllFav() {
-        return allFav;
+    LiveData<PagedList<MovieFavoriteModel>> getAllFav() {
+        return new LivePagedListBuilder<>(repository.getAllFav(), 20).build();
     }
-    public LiveData<List<MovieFavoriteModel>> getAllFavMovie() {
-        return allFavMovie;
+    public LiveData<PagedList<MovieFavoriteModel>> getAllFavMovie() {
+        return new LivePagedListBuilder<>(repository.getAllFavMovie(), 20).build();
     }
-    public LiveData<List<MovieFavoriteModel>> getAllFavShow() {
-        return allFavShow;
+    public LiveData<PagedList<MovieFavoriteModel>> getAllFavShow() {
+        return new LivePagedListBuilder<>(repository.getAllFavShow(), 20).build();
     }
+
+    //    public LiveData<List<MovieFavoriteModel>> getAllFav() {
+//        return allFav;
+//    }
+//    public LiveData<List<MovieFavoriteModel>> getAllFavMovie() {
+//    return allFavMovie;
+//}
+//    public LiveData<List<MovieFavoriteModel>> getAllFavShow() {
+//        return allFavShow;
+//    }
+
 }

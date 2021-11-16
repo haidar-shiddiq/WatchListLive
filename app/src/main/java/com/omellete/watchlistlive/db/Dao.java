@@ -1,13 +1,11 @@
 package com.omellete.watchlistlive.db;
 
-import androidx.lifecycle.LiveData;
+import androidx.paging.DataSource;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
-
-import java.util.List;
 
 @androidx.room.Dao
 public interface Dao {
@@ -25,11 +23,13 @@ public interface Dao {
     void deleteAllFav();
 
     @Query("SELECT * FROM favorite_table ORDER BY username ASC")
-    LiveData<List<MovieFavoriteModel>> getAllFav();
+    DataSource.Factory<Integer, MovieFavoriteModel> getAllFav();
 
     @Query("SELECT * FROM favorite_table WHERE type = 'MOVIES'")
-    LiveData<List<MovieFavoriteModel>> getAllFavMovie();
+    DataSource.Factory<Integer, MovieFavoriteModel> getAllFavMovie();
+//    LiveData<List<MovieFavoriteModel>> getAllFavMovie();
 
     @Query("SELECT * FROM favorite_table WHERE type = 'SHOWS'")
-    LiveData<List<MovieFavoriteModel>> getAllFavShow();
+    DataSource.Factory<Integer, MovieFavoriteModel> getAllFavShow();
+//    LiveData<List<MovieFavoriteModel>> getAllFavShow();
 }

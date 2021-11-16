@@ -1,6 +1,5 @@
 package com.omellete.watchlistlive.adapter;
 
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,10 +10,8 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.omellete.watchlistlive.data.WatchlistEntity;
 import com.omellete.watchlistlive.databinding.ItemFavBinding;
 import com.omellete.watchlistlive.db.MovieFavoriteModel;
-import com.omellete.watchlistlive.ui.detail.DetailActivity;
 
 import java.util.ArrayList;
 import java.util.List;

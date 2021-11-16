@@ -1,19 +1,11 @@
 package com.omellete.watchlistlive;
 
-import androidx.annotation.NonNull;
+import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-
-import com.omellete.watchlistlive.adapter.FavoriteAdapter;
-import com.omellete.watchlistlive.adapter.SectionsPagerAdapter;
 import com.omellete.watchlistlive.adapter.SectionsPagerAdapterFav;
 import com.omellete.watchlistlive.databinding.ActivityFavoriteBinding;
-import com.omellete.watchlistlive.db.MovieFavoriteModel;
-import com.omellete.watchlistlive.ui.detail.DetailActivity;
 
 public class FavoriteActivity extends AppCompatActivity {
 
@@ -33,7 +25,6 @@ public class FavoriteActivity extends AppCompatActivity {
         if (getSupportActionBar() != null) {
             getSupportActionBar().setElevation(0);
         }
-
 
 
     }

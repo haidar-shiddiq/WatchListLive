@@ -80,7 +80,7 @@ public class DetailActivity extends AppCompatActivity {
                 binding.fabFavorite.setText("Added to Favorite");
                 flag = false;
                 roomViewModel.insert(model);
-                Toast.makeText(getApplicationContext(), "User added to Favorite", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Success added to Favorite", Toast.LENGTH_SHORT).show();
             } else {
                 binding.fabFavorite.setText("Add to Favorite");
                 flag = true;

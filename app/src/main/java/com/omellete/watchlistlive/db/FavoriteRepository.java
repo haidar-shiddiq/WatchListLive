@@ -3,23 +3,21 @@ package com.omellete.watchlistlive.db;
 import android.app.Application;
 import android.os.AsyncTask;
 
-import androidx.lifecycle.LiveData;
-
-import java.util.List;
+import androidx.paging.DataSource;
 
 public class FavoriteRepository {
 
     private Dao dao;
-    private LiveData<List<MovieFavoriteModel>> allFav;
-    private LiveData<List<MovieFavoriteModel>> allFavMovie;
-    private LiveData<List<MovieFavoriteModel>> allFavShow;
+//    private DataSource.Factory<Integer, MovieFavoriteModel> allFav;
+//    private DataSource.Factory<Integer, MovieFavoriteModel> allFavMovie;
+//    private DataSource.Factory<Integer, MovieFavoriteModel> allFavShow;
 
     public FavoriteRepository(Application application) {
         FavDatabase database = FavDatabase.getInstance(application);
         dao = database.Dao();
-        allFav = dao.getAllFav();
-        allFavMovie = dao.getAllFavMovie();
-        allFavShow = dao.getAllFavShow();
+//        allFav = dao.getAllFav();
+//        allFavMovie = dao.getAllFavMovie();
+//        allFavShow = dao.getAllFavShow();
     }
 
     public void insert(MovieFavoriteModel model) {
@@ -38,14 +36,14 @@ public class FavoriteRepository {
         new DeleteAllFavAsyncTask(dao).execute();
     }
 
-    public LiveData<List<MovieFavoriteModel>> getAllFav() {
-        return allFav;
+    public DataSource.Factory<Integer, MovieFavoriteModel> getAllFav() {
+        return dao.getAllFav();
     }
-    public LiveData<List<MovieFavoriteModel>> getAllFavMovie() {
-        return allFavMovie;
+    public DataSource.Factory<Integer, MovieFavoriteModel> getAllFavMovie() {
+        return dao.getAllFavMovie();
     }
-    public LiveData<List<MovieFavoriteModel>> getAllFavShow() {
-        return allFavShow;
+    public DataSource.Factory<Integer, MovieFavoriteModel> getAllFavShow() {
+        return dao.getAllFavShow();
     }
 
     private static class InsertFavAsyncTask extends AsyncTask<MovieFavoriteModel, Void, Void> {
