@@ -3,21 +3,16 @@ package com.omellete.watchlistlive.db;
 import android.app.Application;
 import android.os.AsyncTask;
 
+import androidx.lifecycle.LiveData;
 import androidx.paging.DataSource;
 
 public class FavoriteRepository {
 
     private Dao dao;
-//    private DataSource.Factory<Integer, MovieFavoriteModel> allFav;
-//    private DataSource.Factory<Integer, MovieFavoriteModel> allFavMovie;
-//    private DataSource.Factory<Integer, MovieFavoriteModel> allFavShow;
 
     public FavoriteRepository(Application application) {
         FavDatabase database = FavDatabase.getInstance(application);
         dao = database.Dao();
-//        allFav = dao.getAllFav();
-//        allFavMovie = dao.getAllFavMovie();
-//        allFavShow = dao.getAllFavShow();
     }
 
     public void insert(MovieFavoriteModel model) {
@@ -32,19 +27,39 @@ public class FavoriteRepository {
         new DeleteFavAsyncTask(dao).execute(model);
     }
 
+    public void delFav(int id) {
+        new DelFavAsyncTask(dao).execute(id);
+    }
+
+
     public void deleteAllFav() {
         new DeleteAllFavAsyncTask(dao).execute();
+    }
+
+    public LiveData<MovieFavoriteModel> getMovieByIdRoom(int id) {
+        return dao.getMovieById(id);
     }
 
     public DataSource.Factory<Integer, MovieFavoriteModel> getAllFav() {
         return dao.getAllFav();
     }
+
     public DataSource.Factory<Integer, MovieFavoriteModel> getAllFavMovie() {
         return dao.getAllFavMovie();
     }
+
+    public DataSource.Factory<Integer, MovieFavoriteModel> getAllFavMovieDesc() {
+        return dao.getAllFavMovieDesc();
+    }
+
     public DataSource.Factory<Integer, MovieFavoriteModel> getAllFavShow() {
         return dao.getAllFavShow();
     }
+
+    public DataSource.Factory<Integer, MovieFavoriteModel> getAllFavShowDesc() {
+        return dao.getAllFavShowDesc();
+    }
+
 
     private static class InsertFavAsyncTask extends AsyncTask<MovieFavoriteModel, Void, Void> {
         private Dao dao;
@@ -84,6 +99,20 @@ public class FavoriteRepository {
         @Override
         protected Void doInBackground(MovieFavoriteModel... models) {
             dao.delete(models[0]);
+            return null;
+        }
+    }
+
+    private static class DelFavAsyncTask extends AsyncTask<Integer, Void, Void> {
+        private Dao dao;
+
+        private DelFavAsyncTask(Dao dao) {
+            this.dao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(Integer... id) {
+            dao.delFav(id[0]);
             return null;
         }
     }

@@ -11,9 +11,6 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "favorite_table", indices = @Index(value = {"username"}, unique = true))
 public class MovieFavoriteModel implements Parcelable {
 
-//    public static final String TYPE_MOVIE = "MOVIES";
-//    public static final String TYPE_SHOW = "SHOWS";
-
     @PrimaryKey(autoGenerate = true)
     private int uid;
 
@@ -27,15 +24,15 @@ public class MovieFavoriteModel implements Parcelable {
     private String username;
 
     @ColumnInfo(name = "htmlurl")
-    private String htmlurl;
+    private String year;
 
     @ColumnInfo(name = "posterPath")
     private String imgPosterFav;
 
-    public MovieFavoriteModel(int id, String username, String htmlurl, String itemType,String imgPosterFav) {
+    public MovieFavoriteModel(int id, String username, String year, String itemType, String imgPosterFav) {
         this.id = id;
         this.username = username;
-        this.htmlurl = htmlurl;
+        this.year = year;
         this.itemType = itemType;
         this.imgPosterFav = imgPosterFav;
     }
@@ -44,7 +41,7 @@ public class MovieFavoriteModel implements Parcelable {
         uid = in.readInt();
         id = in.readInt();
         username = in.readString();
-        htmlurl = in.readString();
+        year = in.readString();
         itemType = in.readString();
         imgPosterFav = in.readString();
     }
@@ -85,16 +82,12 @@ public class MovieFavoriteModel implements Parcelable {
         return itemType;
     }
 
-    public String getHtmlurl() {
-        return htmlurl;
+    public String getYear() {
+        return year;
     }
 
     public String getImgPosterFav() {
         return imgPosterFav;
-    }
-
-    public void setImgPosterFav(String imgPosterFav) {
-        this.imgPosterFav = imgPosterFav;
     }
 
     @Override
@@ -104,8 +97,13 @@ public class MovieFavoriteModel implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
+
         parcel.writeInt(uid);
+        parcel.writeInt(id);
+        parcel.writeString(itemType);
         parcel.writeString(username);
-        parcel.writeString(htmlurl);
+        parcel.writeString(year);
+        parcel.writeString(imgPosterFav);
     }
+
 }

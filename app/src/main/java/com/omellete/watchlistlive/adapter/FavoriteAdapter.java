@@ -45,7 +45,7 @@ public class FavoriteAdapter extends ListAdapter<MovieFavoriteModel, FavoriteAda
         @Override
         public boolean areContentsTheSame(MovieFavoriteModel oldItem, MovieFavoriteModel newItem) {
             return oldItem.getUsername().equals(newItem.getUsername()) &&
-                    oldItem.getHtmlurl().equals(newItem.getHtmlurl());
+                    oldItem.getYear().equals(newItem.getYear());
         }
     };
 
@@ -59,20 +59,11 @@ public class FavoriteAdapter extends ListAdapter<MovieFavoriteModel, FavoriteAda
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         MovieFavoriteModel model = getFavAt(position);
-//        holder.binding.tvItemTitle.setText(getItems().get(position).getName());
-//        holder.binding.tvItemDate.setText(String.valueOf(getItems().get(position).getYear()));
         holder.binding.tvItemTitleFav.setText(model.getUsername());
-        holder.binding.tvItemDateFav.setText(model.getHtmlurl());
+        holder.binding.tvItemDateFav.setText(model.getYear());
         Glide.with(holder.itemView.getContext())
                 .load(model.getImgPosterFav())
                 .into(holder.binding.imgFav);
-//        holder.binding.itemFav.setOnClickListener(view -> {
-//            Intent intent = new Intent(view.getContext(), DetailActivity.class);
-//            intent.putExtra(DetailActivity.EXTRA_ID_FAV, getItems().get(position).getId());
-//            intent.putExtra(DetailActivity.EXTRA_TYPE_FAV, getItems().get(position).getItemType());
-//            view.getContext().startActivity(intent);
-//        });
-
     }
 
     public MovieFavoriteModel getFavAt(int position) {

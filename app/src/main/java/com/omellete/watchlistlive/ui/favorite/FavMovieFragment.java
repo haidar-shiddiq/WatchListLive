@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -20,7 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.omellete.watchlistlive.adapter.FavoriteAdapter;
 import com.omellete.watchlistlive.databinding.FragmentFavMovieBinding;
-import com.omellete.watchlistlive.db.FavoritePagedListAdapter;
+import com.omellete.watchlistlive.adapter.FavoritePagedListAdapter;
 import com.omellete.watchlistlive.db.MovieFavoriteModel;
 import com.omellete.watchlistlive.db.RoomViewModel;
 import com.omellete.watchlistlive.ui.detail.DetailActivity;
@@ -32,6 +33,7 @@ public class FavMovieFragment extends Fragment {
     private RoomViewModel roomViewModel;
     FavoriteAdapter favoriteAdapter;
     FavoritePagedListAdapter adapter;
+    private boolean flag;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentFavMovieBinding.inflate(inflater, container, false);
@@ -59,6 +61,33 @@ public class FavMovieFragment extends Fragment {
             public void onChanged(PagedList<MovieFavoriteModel> models) {
                 adapter.submitList(models);
             }
+        });
+
+        flag = true;
+        binding.buttonSort.setOnClickListener(v -> {
+            RoomViewModel roomViewModel = new ViewModelProvider(this).get(RoomViewModel.class);
+            if (flag) {
+                float deg = binding.buttonSort.getRotation() + 180F;
+                binding.buttonSort.animate().rotation(deg).setInterpolator(new AccelerateDecelerateInterpolator());
+                roomViewModel.getAllFavMovieDesc().observe(getViewLifecycleOwner(), new Observer<PagedList<MovieFavoriteModel>>() {
+                    @Override
+                    public void onChanged(PagedList<MovieFavoriteModel> models) {
+                        adapter.submitList(models);
+                    }
+                });
+                flag = false;
+            } else {
+                float deg = binding.buttonSort.getRotation() + 180F;
+                binding.buttonSort.animate().rotation(deg).setInterpolator(new AccelerateDecelerateInterpolator());
+                roomViewModel.getAllFavMovie().observe(getViewLifecycleOwner(), new Observer<PagedList<MovieFavoriteModel>>() {
+                    @Override
+                    public void onChanged(PagedList<MovieFavoriteModel> models) {
+                        adapter.submitList(models);
+                    }
+                });
+                flag = true;
+            }
+
         });
 
         adapter.setOnItemClickListener(new FavoriteAdapter.OnItemClickListener() {

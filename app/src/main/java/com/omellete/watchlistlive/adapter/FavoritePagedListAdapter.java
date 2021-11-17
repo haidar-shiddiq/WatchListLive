@@ -1,8 +1,6 @@
-package com.omellete.watchlistlive.db;
+package com.omellete.watchlistlive.adapter;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,13 +11,13 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.omellete.watchlistlive.adapter.FavoriteAdapter;
 import com.omellete.watchlistlive.databinding.ItemFavBinding;
+import com.omellete.watchlistlive.db.MovieFavoriteModel;
 
 public class FavoritePagedListAdapter extends PagedListAdapter<MovieFavoriteModel, FavoritePagedListAdapter.NoteViewHolder> {
-//    private final Activity activity;
 
     private FavoriteAdapter.OnItemClickListener listener;
+
     public FavoritePagedListAdapter() {
         super(DIFF_CALLBACK);
     }
@@ -33,10 +31,9 @@ public class FavoritePagedListAdapter extends PagedListAdapter<MovieFavoriteMode
 
     @Override
     public void onBindViewHolder(@NonNull final NoteViewHolder holder, int position) {
-//        holder.bind(getItem(position));
         MovieFavoriteModel model = getFavAt(position);
         holder.binding.tvItemTitleFav.setText(model.getUsername());
-        holder.binding.tvItemDateFav.setText(model.getHtmlurl());
+        holder.binding.tvItemDateFav.setText(model.getYear());
         Glide.with(holder.itemView.getContext())
                 .load(model.getImgPosterFav())
                 .into(holder.binding.imgFav);
@@ -65,15 +62,6 @@ public class FavoritePagedListAdapter extends PagedListAdapter<MovieFavoriteMode
             });
         }
 
-
-
-//        public void bind(MovieFavoriteModel note) {
-//            holder.binding.tvItemTitleFav.setText(model.getUsername());
-//            holder.binding.tvItemDateFav.setText(model.getHtmlurl());
-//            Glide.with(holder.itemView.getContext())
-//                    .load(model.getImgPosterFav())
-//                    .into(holder.binding.imgFav);
-//        }
     }
 
     public void setOnItemClickListener(FavoriteAdapter.OnItemClickListener listener) {
@@ -84,7 +72,7 @@ public class FavoritePagedListAdapter extends PagedListAdapter<MovieFavoriteMode
             new DiffUtil.ItemCallback<MovieFavoriteModel>() {
                 @Override
                 public boolean areItemsTheSame(MovieFavoriteModel oldNote, MovieFavoriteModel newNote) {
-                    return oldNote.getUsername().equals(newNote.getUsername()) && oldNote.getHtmlurl().equals(newNote.getHtmlurl());
+                    return oldNote.getUsername().equals(newNote.getUsername()) && oldNote.getYear().equals(newNote.getYear());
                 }
 
                 @SuppressLint("DiffUtilEquals")

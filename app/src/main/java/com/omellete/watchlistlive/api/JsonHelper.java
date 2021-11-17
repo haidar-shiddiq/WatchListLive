@@ -22,7 +22,7 @@ import cz.msebera.android.httpclient.Header;
 
 public class JsonHelper {
 
-    String API_KEY = "1634d56b4d56bb0cef518984a7157806";
+    String API_KEY = "YOUR API KEY HERE";
 
     public void loadMovies(RemoteRepository.LoadItemsCallback callback) {
         String url = "https://api.themoviedb.org/3/trending/movie/week?api_key=" + API_KEY;

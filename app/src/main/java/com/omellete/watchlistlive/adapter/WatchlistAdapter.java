@@ -58,6 +58,7 @@ public class WatchlistAdapter extends RecyclerView.Adapter<WatchlistAdapter.Watc
             Intent moveToDetailItem = new Intent(activity, DetailActivity.class);
             moveToDetailItem.putExtra(DetailActivity.EXTRA_ID, getItems().get(position).getId());
             moveToDetailItem.putExtra(DetailActivity.EXTRA_TYPE, getItems().get(position).getItemType());
+            moveToDetailItem.putExtra(DetailActivity.EXTRA_DATA, getItems().get(position));
             activity.startActivity(moveToDetailItem);
         });
     }

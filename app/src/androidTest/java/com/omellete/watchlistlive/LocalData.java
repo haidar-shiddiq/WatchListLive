@@ -18,7 +18,7 @@ public class LocalData {
                 "Adventure, Action, Thriller",
                 "Bond has left active service and is enjoying a tranquil life in Jamaica. His peace is short-lived when his old friend Felix Leiter from the CIA turns up asking for help. The mission to rescue a kidnapped scientist turns out to be far more treacherous than expected, leading Bond onto the trail of a mysterious villain armed with dangerous new technology.",
                 "2021 ",
-                "74%"
+                "76%"
         );
     }
 
@@ -30,7 +30,7 @@ public class LocalData {
                 "오징어 게임",
                 "Squid Game",
                 TYPE_SHOW,
-                "Action & Adventure, Mystery, Drama",
+                "Action & Adventure, Mystery, Drama, Crime",
                 "Hundreds of cash-strapped players accept a strange invitation to compete in children's games—with high stakes. But, a tempting prize awaits the victor.",
                 "2021 ",
                 "78%"

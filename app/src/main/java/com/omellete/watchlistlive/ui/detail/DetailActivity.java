@@ -9,7 +9,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
@@ -24,29 +23,42 @@ public class DetailActivity extends AppCompatActivity {
 
     public static final String EXTRA_ID = "EXTRA_ID";
     public static final String EXTRA_TYPE = "EXTRA_TYPE";
-    public static final String EXTRA_ID_FAV = "EXTRA_ID_FAV";
-    public static final String EXTRA_TYPE_FAV = "EXTRA_TYPE_FAV";
-    public boolean flag;
-    private String itemType, imgFav;
+    public static final String EXTRA_DATA = "EXTRA_DATA";
+    public static final String EXTRA_DATA_FAV = "EXTRA_DATA_FAV";
     private int itemId;
+    private MovieFavoriteModel model, modelItemFav;
+    private RoomViewModel roomViewModel;
+    private String favTitle, favYear, favImg, itemType;
+    private WatchlistEntity modelItem;
 
     private ActivityDetailBinding binding;
     public String itemName;
     ProgressDialog loading;
-    String favUnamee, favNamee;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityDetailBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        setTitle("Detail");
         loading = new ProgressDialog(this);
         loading.setCancelable(false);
         loading.setMessage("Wait for a moment");
         loading.show();
 
         DetailViewModel viewModel = obtainViewModel(this);
+
+        modelItem = getIntent().getParcelableExtra(EXTRA_DATA);
+        modelItemFav = getIntent().getParcelableExtra(EXTRA_DATA_FAV);
+        if (modelItem != null) {
+            favTitle = modelItem.getName();
+            favYear = modelItem.getYear();
+            favImg = modelItem.getImgPosterPath();
+        } else if (modelItemFav != null) {
+            favTitle = modelItemFav.getUsername();
+            favYear = modelItemFav.getYear();
+            favImg = modelItemFav.getImgPosterFav();
+        }
+
 
         Bundle extras = getIntent().getExtras();
         if (extras.getString(EXTRA_TYPE) != null) {
@@ -58,7 +70,7 @@ public class DetailActivity extends AppCompatActivity {
                 viewModel.setItemType(itemType);
             }
             viewModel.getItem().observe(this, this::populateWatchlist);
-        }else if (extras.getString(EXTRA_TYPE) != null) {
+        } else if (extras.getString(EXTRA_TYPE) != null) {
             itemId = extras.getInt(EXTRA_ID, 0);
             itemType = extras.getString(EXTRA_TYPE);
 
@@ -70,25 +82,36 @@ public class DetailActivity extends AppCompatActivity {
 
         viewModel.getItem().observe(this, this::populateWatchlist);
 
-        flag = true;
-        binding.fabFavorite.setOnClickListener(v -> {
-            RoomViewModel roomViewModel = new ViewModelProvider(DetailActivity.this).get(RoomViewModel.class);
-            String favUname = favUnamee;
-            String favName = favNamee;
-            MovieFavoriteModel model = new MovieFavoriteModel(itemId, favUname, favName, itemType,imgFav);
-            if (flag) {
-                binding.fabFavorite.setText("Added to Favorite");
-                flag = false;
-                roomViewModel.insert(model);
-                Toast.makeText(getApplicationContext(), "Success added to Favorite", Toast.LENGTH_SHORT).show();
-            } else {
-                binding.fabFavorite.setText("Add to Favorite");
-                flag = true;
-                roomViewModel.deleteAllFav();
-                Toast.makeText(getApplicationContext(), "All user removed from Favorite", Toast.LENGTH_SHORT).show();
-            }
+        if (itemType.equals("MOVIES")) {
+            setTitle("Movie Detail");
+        } else {
+            setTitle("Tv Show Detail");
+        }
 
+        roomViewModel = new ViewModelProvider(DetailActivity.this).get(RoomViewModel.class);
+        roomViewModel.setMovieId(itemId);
+        model = new MovieFavoriteModel(itemId, favTitle, favYear, itemType, favImg);
+
+        roomViewModel.getMovieByIdRoom().observe(this, results -> {
+            if (results == null) {
+                binding.favButton.setText("Add to Favorite");
+                binding.favButton.setOnClickListener(view -> {
+                    roomViewModel.insert(model);
+                    if (itemType.equals("MOVIES")) {
+                        Toast.makeText(getApplicationContext(), "Movie added to Favorite", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Tv Show added to Favorite", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            } else {
+                binding.favButton.setText("Remove from Favorite");
+                binding.favButton.setOnClickListener(view -> {
+                    roomViewModel.delFav(itemId);
+                    Toast.makeText(getApplicationContext(), "Removed from Favorite", Toast.LENGTH_SHORT).show();
+                });
+            }
         });
+
     }
 
     private DetailViewModel obtainViewModel(AppCompatActivity activity) {
@@ -104,18 +127,15 @@ public class DetailActivity extends AppCompatActivity {
                 .load(item.getImgPosterPath())
                 .into(binding.imgPhoto);
         binding.tvName.setText(item.getName());
-        favUnamee = item.getTitleOri();
-        favNamee = item.getYear();
         binding.tvGenres.setText(item.getGenres());
         binding.tvYear.setText(String.valueOf(item.getYear()));
         binding.nameOri.setText(String.valueOf(item.getTitleOri()));
         binding.tvDescription.setText(item.getDescription());
         binding.userVote.setText(item.getVote());
-        itemName = item.getTitleOri();
-        imgFav = item.getImgPosterPath();
+        itemName = item.getName();
+        itemId = item.getId();
         loading.dismiss();
     }
-
 
 
     @Override

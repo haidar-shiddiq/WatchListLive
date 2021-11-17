@@ -56,6 +56,7 @@ public class ShowDetailActivityTest {
     public void A_loadShow() {
         onView(withId(R.id.imgPhoto)).check(matches(isDisplayed()));
         onView(withId(R.id.imgBackdrop)).check(matches(isDisplayed()));
+        onView(withId(R.id.favButton)).check(matches(isDisplayed()));
         onView(withId(R.id.nameOri)).check(matches(isDisplayed()));
         onView(withId(R.id.nameOri)).check(matches(withText(localShows.getTitleOri())));
         onView(withId(R.id.tvName)).check(matches(isDisplayed()));

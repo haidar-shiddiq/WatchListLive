@@ -3,6 +3,11 @@ package com.omellete.watchlistlive.ui.favorite;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,21 +19,12 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Toast;
-
-import com.omellete.watchlistlive.R;
 import com.omellete.watchlistlive.adapter.FavoriteAdapter;
-import com.omellete.watchlistlive.databinding.FragmentFavMovieBinding;
 import com.omellete.watchlistlive.databinding.FragmentFavTvShowBinding;
-import com.omellete.watchlistlive.db.FavoritePagedListAdapter;
+import com.omellete.watchlistlive.adapter.FavoritePagedListAdapter;
 import com.omellete.watchlistlive.db.MovieFavoriteModel;
 import com.omellete.watchlistlive.db.RoomViewModel;
 import com.omellete.watchlistlive.ui.detail.DetailActivity;
-
-import java.util.List;
 
 public class FavTvShowFragment extends Fragment {
 
@@ -37,6 +33,7 @@ public class FavTvShowFragment extends Fragment {
     private RoomViewModel roomViewModel;
     FavoriteAdapter favoriteAdapter;
     FavoritePagedListAdapter adapter;
+    private boolean flag;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentFavTvShowBinding.inflate(inflater, container, false);
@@ -63,6 +60,33 @@ public class FavTvShowFragment extends Fragment {
             public void onChanged(PagedList<MovieFavoriteModel> models) {
                 adapter.submitList(models);
             }
+        });
+
+        flag = true;
+        binding.buttonSort.setOnClickListener(v -> {
+            RoomViewModel roomViewModel = new ViewModelProvider(this).get(RoomViewModel.class);
+            if (flag) {
+                float deg = binding.buttonSort.getRotation() + 180F;
+                binding.buttonSort.animate().rotation(deg).setInterpolator(new AccelerateDecelerateInterpolator());
+                roomViewModel.getAllFavShowDesc().observe(getViewLifecycleOwner(), new Observer<PagedList<MovieFavoriteModel>>() {
+                    @Override
+                    public void onChanged(PagedList<MovieFavoriteModel> models) {
+                        adapter.submitList(models);
+                    }
+                });
+                flag = false;
+            } else {
+                float deg = binding.buttonSort.getRotation() + 180F;
+                binding.buttonSort.animate().rotation(deg).setInterpolator(new AccelerateDecelerateInterpolator());
+                roomViewModel.getAllFavShow().observe(getViewLifecycleOwner(), new Observer<PagedList<MovieFavoriteModel>>() {
+                    @Override
+                    public void onChanged(PagedList<MovieFavoriteModel> models) {
+                        adapter.submitList(models);
+                    }
+                });
+                flag = true;
+            }
+
         });
 
         adapter.setOnItemClickListener(new FavoriteAdapter.OnItemClickListener() {
